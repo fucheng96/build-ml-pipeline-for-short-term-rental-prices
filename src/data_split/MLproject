@@ -1,0 +1,22 @@
+name: data_split
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+
+      test_size:
+        description: ## ADD DESCRIPTION
+        type: string
+
+      stratify_by:
+        description: ## ADD DESCRIPTION
+        type: string
+
+      random_seed:
+        description: ## ADD DESCRIPTION
+        type: string
+
+
+    command: >-
+        python run.py  --test_size {test_size}  --stratify_by {stratify_by}  --random_seed {random_seed} 
