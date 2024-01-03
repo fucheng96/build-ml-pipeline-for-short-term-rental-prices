@@ -30,17 +30,25 @@ def go(args):
     df = pd.read_csv(input_artifact_path)
     logger.info("basic_cleaning: input_artifact downloaded")
 
-    # Drop outliers
+    # Drop price outliers
     idx = df['price'].between(args.min_price, args.max_price)
     df = df[idx].copy()
-    logger.info("basic_cleaning: Outliers dropped")
+    logger.info("basic_cleaning: Price outliers dropped")
+
+    # Drop latitude & longitude outliers
+    idx = (
+        df['longitude'].between(-74.25, -73.50)
+        & df['latitude'].between(40.5, 41.2)
+    )
+    df = df[idx].copy()
+    logger.info("basic_cleaning: Latitude & longitude outliers dropped")
 
     # Convert last_review to datetime
     df['last_review'] = pd.to_datetime(df['last_review'])
     logger.info("basic_cleaning: Converted last_review to datetime")
 
     # Save the cleaned dataset
-    file_name = "clean_sample.csv"
+    file_name = args.output_artifact
     df.to_csv(file_name, index=False)
     logger.info("basic_cleaning: output_artifact saved")
 
