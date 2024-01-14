@@ -39,7 +39,7 @@ def go(args):
     idx = (
         df['longitude'].between(-74.25, -73.50)
         & df['latitude'].between(40.5, 41.2)
-    )
+    ) 
     df = df[idx].copy()
     logger.info("basic_cleaning: Latitude & longitude outliers dropped")
 
